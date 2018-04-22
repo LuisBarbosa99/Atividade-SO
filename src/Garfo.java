@@ -1,45 +1,54 @@
+import java.util.ArrayList;
 
 public class Garfo {
-	private boolean ocupado = false;
+	private int ig,inf;
+	private String nome;
+	private boolean ocupado;
+	private Mesa mesa;
+	private ArrayList <String> filosofo;
 	
-	public Garfo() {
-		
+	public Garfo(int ig,int inf,String nome,Mesa mesa,ArrayList<String> filosofo,boolean ocupado) {
+		this.ig = ig;
+		this.inf = inf;
+		this.nome = nome;
+		this.mesa = mesa;
+		this.filosofo = filosofo;
+		this.ocupado = ocupado;
 	}
-	public boolean garfo_esquerda(String nome, int ig) {
+	public boolean garfo_esquerda(String nome, int ig,long tempo,boolean ocupado) {
 		if (ocupado == false) {
 			System.out.println(nome +" tenta pegar o garfo"+ig);
 			ocupado = true;
 			return ocupado;
 		}else {
 			System.out.println("O garfo "+ig+" esta ocupado");
-			System.out.println(nome+" esta pensando");
+			ThreadJantar.pensar(tempo,nome);
 			return ocupado;
 		
 		}
 			
 	}
-	public boolean garfo_direita(String nome,int ig) {
+	public boolean garfo_direita(String nome,int ig, long tempo,boolean ocupado) {
 		if (ocupado == false) {
 			System.out.println(nome +"tenta pegar o garfo"+ig);
 			ocupado = true;
 			return ocupado;
 		}else {
 			System.out.println("O garfo"+ig+"esta ocupado");
-			System.out.println(nome+" esta pensando");
+			ThreadJantar.pensar(tempo,nome);
 			return ocupado;
 		}
 			
 	}
-}
-/*	  		nome = filosofo.get(inf);
+	public void LeftRight(long tempo) {
+  		nome = filosofo.get(inf);
 	if(inf == ig){
-		garfo_direita(nome,ig);
+		this.garfo_direita(nome,ig,tempo,ocupado);
 	}else if(inf == (ig + 1)){
-		garfo_esquerda(nome,ig);
+		this.garfo_esquerda(nome,ig,tempo,ocupado);
 	}else if(inf == (ig + 1) && ig >= 5){
 		ig = 1;
-		garfo_esquerda(nome,ig);
-	if(garfo_esquerda = true && garfo_direita = true){
-		System.out.println(nome+ " ta comendo");
+		this.garfo_esquerda(nome,ig,tempo,ocupado);
 	}
-*/
+	}
+}

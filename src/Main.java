@@ -1,9 +1,15 @@
 import java.util.ArrayList;
 
 public class Main {
-	private static void Iniciar() {
-	Mesa mesa = new Mesa(filosofo(),garfo());
+	private boolean ocupado = false;
+	
+private static void Iniciar() {
+	
+	Mesa mesa = new Mesa(filosofo(),garfo(),ocupado);
+	
+	
 	ThreadJantar Thread = new ThreadJantar(mesa);
+	Thread.start();
 	}
 	private static ArrayList<String> filosofo(){
 		ArrayList<String> filosofo = new ArrayList<String>();
