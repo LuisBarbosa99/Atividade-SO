@@ -1,24 +1,49 @@
 
 public class ThreadJantar extends Thread {
 	private long tempo;
-	private Mesa mesa;
-	public ThreadJantar(Mesa mesa) {
-		this.mesa = mesa;
-		
+	private Garfo cGarfo;
+	private String nome;
+	private int inf;
+	
+	public ThreadJantar(int inf,Garfo cGarfo) {
+	this.nome = "Filosofo" + inf;	
+	this.inf = inf;
+	this.cGarfo = cGarfo;
 	}
-	public static void pensar(long tempo,String nome) {
+	
+	public void pensar() {
 		try {
 		System.out.println(nome +" esta pensando");
-		Thread.sleep(tempo);
+		tempo = ((long)Math.random()*5000);
+		sleep(tempo);
 	}catch(Exception e){
 		
 	}
+	}
+	public void comer() {
+		try {
+		if(cGarfo.pegarGarfoDireita(inf)==true && cGarfo.pegarGarfoEsquerda(inf)== true){	
+				System.out.println(nome +" esta comendo");
+				tempo = ((long)Math.random()*5000);
+				sleep(tempo);
+			
+		}else{
+		cGarfo.soltarGarfo(inf);
+		this.pensar();
 		}
-	
-	public void run(Mesa mesa) {
-		tempo = ((long)Math.random()*5000);
-		mesa.jantar(tempo,this,cGarfo);
-	
+		} catch (Exception e) {
+			System.err.println("Qualquer erro que der");
+		}
+	}
+	public void run() {
+	while(true) {	
+		this.pensar();
+		cGarfo.pegarGarfoDireita(inf);
+		cGarfo.pegarGarfoEsquerda(inf);
+		this.comer();
+		cGarfo.soltarGarfo(inf);
+		
+	}
 	}
 	
 }
